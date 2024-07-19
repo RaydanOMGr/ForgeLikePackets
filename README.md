@@ -8,8 +8,7 @@ Forge-like packets are a way to register packets in a single class, and have the
 This means each packet has a class, each class must have these three methods:
 - `encode`: Encodes the packet to a FriendlyByteBuffer
 - `decode`: Static method, decodes the packet from a FriendlyByteBuffer and returns a new instance of the packet
-- `handle`: Handles the packet, this is called on the client or server side when the packet is received. <br>
-This method is a little bit more complicated as it takes in a Supplier of a context.
+- `handle`: Handles the packet, this is called on the client or server side when the packet is received.
 
 ## Usage
 To use this library, you first need to publish it to your local maven repository. <br>
