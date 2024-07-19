@@ -32,7 +32,7 @@ Here is an example of how to use this library:
 ```java
 // this is written in yarn because that is the standard for fabric
 public class ExamplePacket {
-    public static final Identifier ID = new Identifier(
+    public static final Identifier ID = new Identifier("examplemod", "examplepacket");
     private String message;
     
     public ExamplePacket(String message) {
