@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation "me.andreasmelone:forge-like-packets:1.0.0"
+    modImplementation "me.andreasmelone:forge-like-packets:1.0.1"
 }
 ```
 
