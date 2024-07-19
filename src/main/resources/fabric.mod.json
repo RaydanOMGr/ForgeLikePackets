@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "forgelikepackets",
+  "version": "${version}",
+  "name": "ForgeLikePackets",
+  "description": "Adds Forge-like packets to fabric (Requires Fabric API)",
+  "authors": [
+    "AndreasMelone"
+  ],
+  "contact": {
+    "repo": "https://github.com/RaydanOMGr/ForgeLikePackets"
+  },
+  "license": "MIT",
+  "icon": "assets/forgelikepackets/logo.png",
+  "environment": "*",
+  "entrypoints": {
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": ">=1.19 <=1.19.3"
+  }
+}
