@@ -1,7 +1,7 @@
 # Forge-like Packets
 The fabric API has its own way of handling packets, but it seperates client and server packet registration.
 This causes a lot of duplicate code, and is not very nice to work with. 
-This library aims to fix that by providing a forge-like packet system for fabric, which is based on fabrics packet system for maximal compatibility.
+This library aims to fix that by providing a forge-like packet system for fabric, which is based on top of fabrics packet system for maximal compatibility.
 
 ## What are Forge-like Packets?
 Forge-like packets are a way to register packets in a single class, and have them automatically registered on both the client and server side.
