@@ -47,8 +47,7 @@ public class ExamplePacket {
         return new ExamplePacket(buf.readString());
     }
     
-    public void handle(Supplier<PacketContext> context) {
-        PacketContext ctx = context.get();
+    public void handle(PacketContext ctx) {
         ctx.enqueueWork(() -> {
             if(ctx.getDirection() == NetworkSide.CLIENTBOUND) {
                 MinecraftClient.getInstance().player.sendMessage(Text.literal(message), false);
@@ -64,7 +63,7 @@ public class ExampleMod implements ModInitializer {
     @Override
     public void onInitialize() {
         // registering the packet
-        PacketRegistry.getInstance().register(
+        PacketRegistry.INSTANCE.register(
             ExamplePacket.ID,
             ExamplePacket.class,
             ExamplePacket::encode,
@@ -74,12 +73,12 @@ public class ExampleMod implements ModInitializer {
 
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             // sending the packet from the client (requires you to be on a server)
-            PacketRegistry.getInstance().sendToServer(ExamplePacket.ID, new ExamplePacket("hello from the client!"));
+            PacketRegistry.INSTANCE.sendToServer(ExamplePacket.ID, new ExamplePacket("hello from the client!"));
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             // sending the packet from the server
-            PacketRegistry.getInstance().sendTo(handler.getPlayer(), ExamplePacket.ID, new ExamplePacket("hello from the server!"));
+            PacketRegistry.INSTANCE.sendTo(handler.getPlayer(), ExamplePacket.ID, new ExamplePacket("hello from the server!"));
         });
     }
 }

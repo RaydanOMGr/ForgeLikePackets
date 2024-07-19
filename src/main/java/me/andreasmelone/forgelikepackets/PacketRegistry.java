@@ -11,14 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * The packet registry. Used to register and send packets
  * Uses Fabric APIs to register and send packets
  */
 public class PacketRegistry {
-    private static final PacketRegistry INSTANCE = new PacketRegistry();
+    public static final PacketRegistry INSTANCE = new PacketRegistry();
 
     private final Map<ResourceLocation, PacketInstance<?>> packets = new HashMap<>();
 
@@ -36,14 +35,14 @@ public class PacketRegistry {
         if (canRegister()) {
             ClientConsumerRegistry.register(
                     id,
-                    packetInstance.getDecoder(),
-                    packetInstance.getConsumer()
+                    packetInstance.decoder(),
+                    packetInstance.consumer()
             );
         }
         CommonConsumerRegistry.register(
                 id,
-                packetInstance.getDecoder(),
-                packetInstance.getConsumer()
+                packetInstance.decoder(),
+                packetInstance.consumer()
         );
     }
 
@@ -59,7 +58,7 @@ public class PacketRegistry {
     public <MSG> void register(ResourceLocation id, Class<MSG> clazz,
                                BiConsumer<MSG, FriendlyByteBuf> encoder,
                                Function<FriendlyByteBuf, MSG> decoder,
-                               BiConsumer<MSG, Supplier<PacketContext>> consumer) {
+                               BiConsumer<MSG, PacketContext> consumer) {
         PacketInstance<MSG> packetInstance = new PacketInstance<>(clazz, encoder, decoder, consumer);
         register(id, packetInstance);
     }
@@ -72,7 +71,7 @@ public class PacketRegistry {
      */
     public <MSG> void sendToServer(ResourceLocation id, MSG packet) {
         PacketInstance<MSG> packetInstance = (PacketInstance<MSG>) packets.get(id);
-        ClientConsumerRegistry.sendToServer(id, packet, packetInstance.getEncoder());
+        ClientConsumerRegistry.sendToServer(id, packet, packetInstance.encoder());
     }
 
 
@@ -85,15 +84,7 @@ public class PacketRegistry {
      */
     public <MSG> void sendTo(ServerPlayer player, ResourceLocation id, MSG packet) {
         PacketInstance<MSG> packetInstance = (PacketInstance<MSG>) packets.get(id);
-        CommonConsumerRegistry.sendTo(player, id, packet, packetInstance.getEncoder());
-    }
-
-    /**
-     * Gets the instance of the packet registry
-     * @return The instance of the packet registry
-     */
-    public static PacketRegistry getInstance() {
-        return INSTANCE;
+        CommonConsumerRegistry.sendTo(player, id, packet, packetInstance.encoder());
     }
 
     /**

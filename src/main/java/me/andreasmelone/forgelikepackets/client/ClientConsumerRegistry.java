@@ -10,21 +10,22 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Internal class. Should not be used by the user.
+ * Use {@link me.andreasmelone.forgelikepackets.PacketRegistry} instead.
+ * @see me.andreasmelone.forgelikepackets.PacketRegistry
  */
 @ApiStatus.Internal
 public class ClientConsumerRegistry {
     public static <MSG> void register(
             ResourceLocation id,
             Function<FriendlyByteBuf, MSG> decoder,
-            BiConsumer<MSG, Supplier<PacketContext>> consumer
+            BiConsumer<MSG, PacketContext> consumer
     ) {
         ClientPlayNetworking.registerGlobalReceiver(id, (client, handler, buf, responseSender) -> {
             MSG packet = decoder.apply(buf);
-            consumer.accept(packet, () -> new PacketContext(new WorkEnqueuerClient(), PacketFlow.CLIENTBOUND, null));
+            consumer.accept(packet, new PacketContext(new WorkEnqueuerClient(), PacketFlow.CLIENTBOUND, null));
         });
     }
 
