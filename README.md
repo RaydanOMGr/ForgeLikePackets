@@ -11,16 +11,17 @@ This means each packet has a class, each class must have these three methods:
 - `handle`: Handles the packet, this is called on the client or server side when the packet is received.
 
 ## Usage
-To use this library, you first need to publish it to your local maven repository. <br>
-To do this, run `./gradlew publishToMavenLocal` in the root directory of this project. <br>
-Then, add this to your build.gradle:
+Add this to your build.gradle:
 ```gradle
 repositories {
-    mavenLocal()
+    maven {
+        name "radRepoPublic"
+        url "https://maven.radsteve.net/public"
+    }
 }
 
 dependencies {
-    modImplementation include("me.andreasmelone:forge-like-packets:1.0.2")
+    modImplementation include("me.andreasmelone:ForgeLikePackets:1.0.3")
 }
 ```
 
