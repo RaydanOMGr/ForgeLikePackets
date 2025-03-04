@@ -1,11 +1,12 @@
 # Forge-like Packets
-The fabric API has its own way of handling packets, but it seperates client and server packet registration.
+The Fabric API has its own way of handling packets, but it separates client and server packet registration.
 This causes a lot of duplicate code, and is not very nice to work with. 
-This library aims to fix that by providing a forge-like packet system for fabric, which is based on top of fabrics packet system for maximal compatibility.
+This library aims to fix that by providing a Forge-like packet system for fabric,
+which is based on top of the fabric packet system for maximal compatibility.
 
 ## What are Forge-like Packets?
 Forge-like packets are a way to register packets in a single class, and have them automatically registered on both the client and server side.
-This means each packet has a class, each class must have these three methods:
+This means each packet has a class; each class must have these three methods:
 - `encode`: Encodes the packet to a FriendlyByteBuffer
 - `decode`: Static method, decodes the packet from a FriendlyByteBuffer and returns a new instance of the packet
 - `handle`: Handles the packet, this is called on the client or server side when the packet is received.
@@ -21,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation include("me.andreasmelone:ForgeLikePackets:1.0.3")
+    modImplementation include("me.andreasmelone:ForgeLikePackets:1.0.4")
 }
 ```
 
