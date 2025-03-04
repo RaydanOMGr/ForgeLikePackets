@@ -36,12 +36,14 @@ public class PacketRegistry {
             ClientConsumerRegistry.register(
                     id,
                     packetInstance.decoder(),
+                    packetInstance.encoder(),
                     packetInstance.consumer()
             );
         }
         CommonConsumerRegistry.register(
                 id,
                 packetInstance.decoder(),
+                packetInstance.encoder(),
                 packetInstance.consumer()
         );
     }
@@ -71,9 +73,8 @@ public class PacketRegistry {
      */
     public <MSG> void sendToServer(ResourceLocation id, MSG packet) {
         PacketInstance<MSG> packetInstance = (PacketInstance<MSG>) packets.get(id);
-        ClientConsumerRegistry.sendToServer(id, packet, packetInstance.encoder());
+        ClientConsumerRegistry.sendToServer(id, packet);
     }
-
 
     /**
      * Sends a packet to a player
@@ -84,7 +85,7 @@ public class PacketRegistry {
      */
     public <MSG> void sendTo(ServerPlayer player, ResourceLocation id, MSG packet) {
         PacketInstance<MSG> packetInstance = (PacketInstance<MSG>) packets.get(id);
-        CommonConsumerRegistry.sendTo(player, id, packet, packetInstance.encoder());
+        CommonConsumerRegistry.sendTo(player, id, packet);
     }
 
     /**
